@@ -1,0 +1,53 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DemoActivity" >
+
+    <com.twoview.SlidingUpPanelLayout
+        android:id="@+id/sliding_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <WebView
+            android:id="@+id/webview1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Main Content"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#eee"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="34dp"
+                android:gravity="center|bottom"
+                android:text="The Awesome Sliding Up Panel"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/brought_by"
+                android:layout_width="match_parent"
+                android:layout_height="34dp"
+                android:gravity="center|top"
+                android:text="Brought to you by http://umanoapp.com"
+                android:textSize="14sp" 
+                android:autoLink="web"/>
+            
+            <WebView
+                android:id="@+id/webview2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+                
+                
+                   
+        </LinearLayout>
+    </com.twoview.SlidingUpPanelLayout>
+
+</RelativeLayout>
