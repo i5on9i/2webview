@@ -16,6 +16,23 @@ import android.view.View;
  * 
  * @see SystemUiHider
  */
+
+
+/*
+<pre>
+
+
+    +-------------+                              +----------+   +-------------+                          +------------+ +-----------+
+    |   Actvity.  |      Activity.               | Activity.|   |   Actvity.  |     Activity.            |   Activity.| |  Activity.|  Activity.
+    |  onCreate   +-->  onRestoreInstanceState +>|onStart   |   |  onResume   +--> onSaveInstanceState +->  onPause   | | onStop    | onDestroy
+    |             |                              |          |   |             |                          |            | |           |
+    |             |                              |          |   +-------------+                          +------------+ |           |
+    |             |                              |          |                                                           |           |
+    |             |                              |          |<-------------------+    Activity.    <--------------------+           |
+    +-------------+                              +----------+                        onRestart                          +-----------+
+</pre>
+
+*/
 public class EngNewsReaderActivity extends Activity {
 	/**
 	 * Whether or not the system UI should be auto-hidden after

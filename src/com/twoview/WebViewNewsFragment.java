@@ -133,6 +133,7 @@ public class WebViewNewsFragment extends Fragment {
 		// This bundle will be passed to onCreate, onCreateView, and
 		// onCreateView if the parent Activity is killed and restarted.
 		super.onSaveInstanceState(savedInstanceState);
+		
 	}
 	
 	// Called at the end of the visible lifetime.
