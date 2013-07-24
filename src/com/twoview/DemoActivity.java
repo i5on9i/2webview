@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
+import android.webkit.CookieManager;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -26,9 +27,11 @@ import android.widget.TextView;
 
 public class DemoActivity extends Activity {
 
-	private String mainUrl = "http://www.economist.com/printedition";
-	private String subUrl = "http://m.endic.naver.com/";
+	private String mMainUrl = "http://www.economist.com/printedition";
+	private String mSubUrl = "http://m.endic.naver.com/";
 	
+	private WebView mMainWebView;
+	private WebView mSubWebView;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,15 +59,7 @@ public class DemoActivity extends Activity {
 
             @Override
             public void onPanelExpanded(View panel) {
-            	WebView mWebView = (WebView) findViewById(R.id.webview2);
-        		
-        		WebSettings webSettings = mWebView.getSettings();
-        		webSettings.setJavaScriptEnabled(true);
-        		
-        		
-        		mWebView.setWebViewClient(new MyWebViewClient());
-        		
-        		mWebView.loadUrl(subUrl);
+            	
 
             }
 
@@ -78,19 +73,46 @@ public class DemoActivity extends Activity {
         t.setMovementMethod(LinkMovementMethod.getInstance());
         
         
-        
-        WebView mWebView = (WebView) findViewById(R.id.webview1);
+        // main panel
+        mMainWebView = (WebView) findViewById(R.id.webview1);
 		
-		WebSettings webSettings = mWebView.getSettings();
+		WebSettings webSettings = mMainWebView.getSettings();
 		webSettings.setJavaScriptEnabled(true);
 		
 		
-		mWebView.setWebViewClient(new MyWebViewClient());
+		mMainWebView.setWebViewClient(new MyWebViewClient());
 		
-		mWebView.loadUrl(mainUrl);
+		mMainWebView.loadUrl(mMainUrl);
+		
+		// Cookie policy - use no cookie
+		CookieManager cookieManager = CookieManager.getInstance();
+		cookieManager.setAcceptCookie(false);
+
+
+		// sliding panel
+		mSubWebView = (WebView) findViewById(R.id.webview2);
+        		
+		webSettings = mSubWebView.getSettings();
+		webSettings.setJavaScriptEnabled(true);
+		
+		
+		mSubWebView.setWebViewClient(new MyWebViewClient());
+		
+		mSubWebView.loadUrl(mSubUrl);
 		
     }
 
+    @Override
+    public void onBackPressed() {
+    	if (mMainWebView.isFocused() && mMainWebView.canGoBack()) {
+    		mMainWebView.goBack();       
+	    }
+	    else {
+            super.onBackPressed();
+	    }
+    }
+    
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -105,10 +127,11 @@ public class DemoActivity extends Activity {
     private class MyWebViewClient extends WebViewClient {
     	@Override
     	public boolean shouldOverrideUrlLoading(WebView view, String url) {
-
+    		// Invoked when new url is about to load.
+    		
     		// This is my web site, so do not override; let my WebView load the page
     		Log.d("namh", url);
-    		view.loadUrl(url);
+    		// view.loadUrl(url);
             return false; // then it is not handled by default action
 
     	}
